@@ -1,0 +1,22 @@
+[
+  {
+    "id": "test-video-1",
+    "title": "Sample video segment demonstrating the walkthrough system",
+    "src": "video-snippets/test-video-1.mp4",
+    "captions": "transcripts/test-video-1.vtt",
+    "start": 0,
+    "end": 5.2,
+    "duration": "5.2",
+    "text": "This is a sample video segment to demonstrate the walkthrough system. The pipeline automatically processes videos and creates accessible captions."
+  },
+  {
+    "id": "test-video-2", 
+    "title": "Second segment showing continuous playback functionality",
+    "src": "video-snippets/test-video-2.mp4",
+    "captions": "transcripts/test-video-2.vtt",
+    "start": 5.2,
+    "end": 10,
+    "duration": "4.8",
+    "text": "This second segment demonstrates how the system can automatically transition between video clips for a seamless viewing experience."
+  }
+]
