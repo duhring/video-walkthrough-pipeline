@@ -7,4 +7,3 @@ dist/
 video-snippets/*.mp4
 video-snippets/*.mov
 transcripts/*.vtt
-components.json
