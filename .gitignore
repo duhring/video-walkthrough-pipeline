@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+.env.local
+.DS_Store
+*.log
+video-snippets/*.mp4
+video-snippets/*.mov
+transcripts/*.vtt
+components.json
