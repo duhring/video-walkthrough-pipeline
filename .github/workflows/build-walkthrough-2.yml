@@ -1,0 +1,50 @@
+name: Build Highlight Cards
+on:
+  push:
+    paths:
+      - 'inputs/**'
+      - '.github/workflows/build-walkthrough.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install deps
+        run: |
+          npm ci
+
+      - name: Install tools
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+          pip install yt-dlp
+
+      - name: Select segments
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: node scripts/segment-select.js inputs/lecture.vtt > segments.json
+
+      - name: Grab poster frames
+        run: node scripts/grab-frame.js segments.json inputs/youtube.txt
+
+      - name: Paintify frames
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: node scripts/paintify.mjs segments.json
+
+      - name: Build site
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
